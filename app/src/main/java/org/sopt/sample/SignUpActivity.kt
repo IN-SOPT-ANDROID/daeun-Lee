@@ -15,8 +15,8 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.finishBtn.setOnClickListener{
-            if (binding.editTextId.text.length>=6 && binding.editTextId.text.length<10
-                && binding.editTextPw.text.length>=8 && binding.editTextPw.text.length<12) {
+            if (binding.editTextId.text.length in 6..10
+                && binding.editTextPw.text.length in 8..12) {
                 val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
                 intent.putExtra("id",binding.editTextId.text.toString())
                 intent.putExtra("password", binding.editTextPw.text.toString())
