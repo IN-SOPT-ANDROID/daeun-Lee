@@ -32,7 +32,7 @@ class SignInActivity : AppCompatActivity() {
                     if (binding.editTextId.text.toString().equals(id) &&
                         binding.editTextPw.text.toString().equals(pw)) {
                         Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, HomeActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         intent.putExtra("homeid",id.toString())
                         intent.putExtra("homembti",mbti.toString())
                         startActivity(intent)
