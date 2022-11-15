@@ -1,53 +1,66 @@
 package org.sopt.sample
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import org.sopt.sample.remote.RequestLoginDTO
+import org.sopt.sample.remote.ResponseLoginDTO
 import org.sopt.sample.databinding.ActivitySignInBinding
+import org.sopt.sample.remote.ServicePool
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-
+    private val loginService = ServicePool.loginService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        resultLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                Snackbar.make(binding.root, "회원가입 성공", Snackbar.LENGTH_LONG).show()
-                val id = it.data?.getStringExtra("id") ?: ""
-                val pw = it.data?.getStringExtra("password") ?: ""
-                val mbti = it.data?.getStringExtra("mbti") ?: ""
 
-                binding.loginBtn.setOnClickListener {
-                    if (binding.editTextId.text.toString().equals(id) &&
-                        binding.editTextPw.text.toString().equals(pw)) {
-                        Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.putExtra("homeid",id.toString())
-                        intent.putExtra("homembti",mbti.toString())
+        binding.loginBtn.setOnClickListener {
+            loginService.login(
+                RequestLoginDTO(
+                    binding.editTextId.text.toString(),
+                    binding.editTextPw.text.toString()
+                )
+                //서버에 요청을 보내기 위한 RequestData 생성
+            ).enqueue(object : Callback<ResponseLoginDTO> {
+                override fun onResponse(
+                    call: Call<ResponseLoginDTO>,
+                    response: Response<ResponseLoginDTO>
+                ) {
+                    Log.d("으엥", "${response.body()}")
+                    if (response.isSuccessful) {
+                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
                         startActivity(intent)
+                        finish()
+                    } else if (response.code() == 404) {
+                        Snackbar.make(binding.root, "404 error", Snackbar.LENGTH_LONG)
+                            .show()
+                    } else if (response.code() == 401) {
+                        Snackbar.make(binding.root, "401 error", Snackbar.LENGTH_LONG)
+                            .show()
                     }
-                    else{
-                        Toast.makeText(this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    else if (response.code() == 409) {
+                        Snackbar.make(binding.root, "409 error", Snackbar.LENGTH_LONG)
+                            .show()
                     }
                 }
-            }
-        }
 
+                override fun onFailure(call: Call<ResponseLoginDTO>, t: Throwable) {
+                    Snackbar.make(binding.root, "서버통신 실패", Snackbar.LENGTH_LONG).show()
+                }
+            })
+        }
         binding.registerBtn.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
-            resultLauncher.launch(intent)
-
+            startActivity(intent)
         }
     }
 }
