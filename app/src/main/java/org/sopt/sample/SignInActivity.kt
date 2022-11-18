@@ -35,7 +35,7 @@ class SignInActivity : AppCompatActivity() {
                     call: Call<ResponseLoginDTO>,
                     response: Response<ResponseLoginDTO>
                 ) {
-                    Log.d("으엥", "${response.body()}")
+                    Log.d("로그인", "${response.body()}")
                     if (response.isSuccessful) {
                         val intent = Intent(this@SignInActivity, MainActivity::class.java)
                         startActivity(intent)
@@ -45,10 +45,6 @@ class SignInActivity : AppCompatActivity() {
                             .show()
                     } else if (response.code() == 401) {
                         Snackbar.make(binding.root, "401 error", Snackbar.LENGTH_LONG)
-                            .show()
-                    }
-                    else if (response.code() == 409) {
-                        Snackbar.make(binding.root, "409 error", Snackbar.LENGTH_LONG)
                             .show()
                     }
                 }

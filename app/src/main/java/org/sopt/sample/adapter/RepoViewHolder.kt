@@ -1,16 +1,17 @@
 package org.sopt.sample.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.sample.data.Repo
+import coil.api.load
 import org.sopt.sample.databinding.LayoutGithubRepoBinding
+import org.sopt.sample.remote.ResponseUserDTO
 
 class RepoViewHolder(
     private val binding: LayoutGithubRepoBinding
 ): RecyclerView.ViewHolder(binding.root){
-    fun onBind(data: Repo){
-        binding.imgGithub.setImageDrawable(binding.root.context.getDrawable(data.image))
-        binding.txtGithubName.setText(data.name)
-        binding.txtGithubAuthor.setText(data.author)
+    fun onBind(data: ResponseUserDTO.Data){
+        binding.imgGithub.load(data.avatar)
+        binding.txtGithubName.setText(data.first_name)
+        binding.txtGithubAuthor.setText(data.email)
     }
 
 }
