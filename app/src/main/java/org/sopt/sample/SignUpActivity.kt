@@ -34,10 +34,10 @@ class SignUpActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         Log.d("회원가입 성공", "${response.body()}")
+                        val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
-                    val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
-                    startActivity(intent)
-                    finish()
                 }
 
                 override fun onFailure(call: Call<ResponseSignupDTO>, t: Throwable) {
