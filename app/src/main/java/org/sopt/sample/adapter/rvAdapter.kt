@@ -3,16 +3,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.sample.data.Repo
-import org.sopt.sample.data.Repo.Companion.HEADER_TYPE
-import org.sopt.sample.data.Repo.Companion.REPO_TYPE
 import org.sopt.sample.databinding.LayoutGithubRepoBinding
 import org.sopt.sample.databinding.LayoutHeaderBinding
+import org.sopt.sample.remote.ResponseUserDTO
 
 class rvAdapter(context : Context):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater by lazy {LayoutInflater.from(context)}
-    private var repoList: List<Repo> = emptyList()
+    private var repoList: List<ResponseUserDTO.Data> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -29,23 +27,21 @@ class rvAdapter(context : Context):RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val currentItem = repoList[position]
-
-        when(currentItem.viewType){
-            REPO_TYPE -> (holder as RepoViewHolder).onBind(currentItem)
-            HEADER_TYPE -> (holder as TitleViewHolder).onBind(currentItem)
+        when(holder){
+            is RepoViewHolder ->
+            holder.onBind(repoList[position])
         }
     }
 
     override fun getItemCount(): Int = repoList.size
 
-    override fun getItemViewType(position: Int): Int {
-        return repoList[position].viewType
-    }
-
-    fun setRepoList(repoList: List<Repo>){
+    fun setRepoList(repoList: List<ResponseUserDTO.Data>){
         this.repoList = repoList.toList()
         notifyDataSetChanged()
     }
 
+    companion object {
+        const val REPO_TYPE = 0 // repo view
+        const val HEADER_TYPE = 1 // title view
+    }
 }
