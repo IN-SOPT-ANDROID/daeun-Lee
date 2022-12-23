@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import org.sopt.sample.base.BindingActivity
@@ -100,6 +101,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
         viewModel.signupResult.observe(this) {
             startActivity(Intent(this,SignInActivity::class.java))
+            Toast.makeText(this,getString(R.string.sign_up_success_toast_msg), Toast.LENGTH_LONG).show()
         }
     }
 }
