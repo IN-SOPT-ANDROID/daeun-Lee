@@ -2,6 +2,7 @@ package org.sopt.sample
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.databinding.ActivitySignInBinding
@@ -13,7 +14,11 @@ class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_s
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        // 버튼 클릭 이벤트
+
+        addListeners()
+        addObservers()
+    }
+    private fun addListeners(){
         binding.loginBtn.setOnClickListener {
             viewModel.login(
                 binding.editTextId.text.toString(),
@@ -21,11 +26,20 @@ class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_s
             )
         }
 
-        viewModel.loginResult.observe(this) {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
         binding.registerBtn.setOnClickListener(){
             startActivity(Intent(this,SignUpActivity::class.java))
         }
+    }
+
+    private fun addObservers() {
+        viewModel.loginResult.observe(this) {
+            Toast.makeText(this, getString(R.string.sign_in_success_toast_msg), Toast.LENGTH_LONG).show()
+            moveToMain()
+        }
+    }
+
+    private fun moveToMain() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

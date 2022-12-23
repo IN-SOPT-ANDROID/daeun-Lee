@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import org.sopt.sample.base.BindingActivity
@@ -15,21 +16,30 @@ import java.util.regex.Pattern
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel by viewModels<SignupViewModel>()
+    var validEmail = false
+    var validPw = false
+    val EmailPattern = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$"
+    val pattern1 = Pattern.compile(EmailPattern)
+    val PwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
+    val pattern2 = Pattern.compile(PwPattern)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // 버튼 클릭 이벤트
-        var validEmail = false
-        var validPw = false
-        val EmailPattern = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$"
-        val pattern1 = Pattern.compile(EmailPattern)
-        val PwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
-        val pattern2 = Pattern.compile(PwPattern)
+        addListeners()
+        addObservers()
+    }
 
-
-
+    private fun addListeners(){
+        binding.finishBtn.setOnClickListener {
+            viewModel.signup(
+                binding.editTextEmail.text.toString(),
+                binding.editTextPw.text.toString(),
+                binding.editTextName.text.toString()
+            )
+        }
         binding.editTextEmail.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 // 입력난에 변화가 있을 시 조치
@@ -55,7 +65,9 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 // 입력하기 전에 조치
             }
         })
+    }
 
+    private fun addObservers() {
         viewModel.inputEmail.observe(this) {
             val matcher1 = pattern1.matcher(it)
             if(matcher1.find() == true) {
@@ -90,16 +102,9 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 binding.finishBtn.isEnabled = true
         }
 
-        binding.finishBtn.setOnClickListener {
-            viewModel.signup(
-                binding.editTextEmail.text.toString(),
-                binding.editTextPw.text.toString(),
-                binding.editTextName.text.toString()
-            )
-        }
-
         viewModel.signupResult.observe(this) {
             startActivity(Intent(this,SignInActivity::class.java))
+            Toast.makeText(this,getString(R.string.sign_up_success_toast_msg), Toast.LENGTH_LONG).show()
         }
     }
 }

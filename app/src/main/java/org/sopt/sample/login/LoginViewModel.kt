@@ -1,6 +1,7 @@
 package org.sopt.sample.login
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel : ViewModel() {
     private val _loginResult: MutableLiveData<ResponseLoginDTO> = MutableLiveData()
     val loginResult: LiveData<ResponseLoginDTO>
         get() = _loginResult
@@ -22,7 +23,6 @@ class LoginViewModel: ViewModel() {
                 call: Call<ResponseLoginDTO>,
                 response: Response<ResponseLoginDTO>
             ) {
-                Log.d("로그인 성공", "${response.body()}")
                 _loginResult.value = response.body()
             }
 
