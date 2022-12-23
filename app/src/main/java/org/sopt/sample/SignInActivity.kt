@@ -3,60 +3,30 @@ package org.sopt.sample
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
-import org.sopt.sample.remote.RequestLoginDTO
-import org.sopt.sample.remote.ResponseLoginDTO
+import androidx.activity.viewModels
 import org.sopt.sample.databinding.ActivitySignInBinding
-import org.sopt.sample.remote.ServicePool
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import org.sopt.sample.login.LoginViewModel
 
 class SignInActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignInBinding
-    private val loginService = ServicePool.loginService
+    private val viewModel by viewModels<LoginViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignInBinding.inflate(layoutInflater)
+        val binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
+        // 버튼 클릭 이벤트
         binding.loginBtn.setOnClickListener {
-            loginService.login(
-                RequestLoginDTO(
-                    binding.editTextId.text.toString(),
-                    binding.editTextPw.text.toString()
-                )
-                //서버에 요청을 보내기 위한 RequestData 생성
-            ).enqueue(object : Callback<ResponseLoginDTO> {
-                override fun onResponse(
-                    call: Call<ResponseLoginDTO>,
-                    response: Response<ResponseLoginDTO>
-                ) {
-                    Log.d("로그인", "${response.body()}")
-                    if (response.isSuccessful) {
-                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else if (response.code() == 404) {
-                        Snackbar.make(binding.root, "404 error", Snackbar.LENGTH_LONG)
-                            .show()
-                    } else if (response.code() == 401) {
-                        Snackbar.make(binding.root, "401 error", Snackbar.LENGTH_LONG)
-                            .show()
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseLoginDTO>, t: Throwable) {
-                    Snackbar.make(binding.root, "서버통신 실패", Snackbar.LENGTH_LONG).show()
-                }
-            })
+            viewModel.login(
+                binding.editTextId.text.toString(),
+                binding.editTextPw.text.toString()
+            )
         }
-        binding.registerBtn.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+
+        viewModel.loginResult.observe(this) {
+
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        binding.registerBtn.setOnClickListener(){
+            startActivity(Intent(this,SignUpActivity::class.java))
         }
     }
 }
