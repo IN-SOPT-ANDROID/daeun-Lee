@@ -1,5 +1,6 @@
 package org.sopt.sample.remote
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -7,7 +8,8 @@ data class ResponseUserDTO(
     val page: Int,
     val per_page: Int,
     val total: Int,
-    val total_pages: Int,
+    @SerialName("total_pages")
+    val totalPages: Int,
     val data: List<Data>,
     val support: Support,
 
@@ -16,8 +18,10 @@ data class ResponseUserDTO(
     data class Data(
         val id: Int,
         val email: String,
-        val first_name: String,
-        val last_name: String,
+        @SerialName("first_name")
+        val firstName: String,
+        @SerialName("last_name")
+        val lastName: String,
         val avatar: String,
     )
 
