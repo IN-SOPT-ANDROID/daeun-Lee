@@ -9,25 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import org.sopt.sample.base.BindingFragment
+import org.sopt.sample.databinding.FragmentSearchBinding
 import org.sopt.sample.remote.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment: Fragment() {
+class HomeFragment: BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var _binding : FragmentHomeBinding? = null
-    private val binding : FragmentHomeBinding
         get() = requireNotNull(_binding)
     private val userService = UserServicePool.userService
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,10 +42,5 @@ class HomeFragment: Fragment() {
                 Snackbar.make(binding.root, "서버통신 실패", Snackbar.LENGTH_LONG).show()
             }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

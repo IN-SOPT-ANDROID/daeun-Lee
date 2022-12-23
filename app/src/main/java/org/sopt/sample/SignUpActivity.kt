@@ -6,19 +6,20 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.databinding.ActivitySignUpBinding
 import org.sopt.sample.signup.SignupViewModel
 import java.util.regex.Pattern
 
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel by viewModels<SignupViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
         // 버튼 클릭 이벤트
         var validEmail = false
         var validPw = false

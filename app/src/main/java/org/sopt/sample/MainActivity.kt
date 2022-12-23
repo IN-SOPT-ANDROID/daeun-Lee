@@ -1,14 +1,13 @@
 package org.sopt.sample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.RelativeLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.sopt.sample.base.BindingActivity
+import org.sopt.sample.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity :BindingActivity<ActivityMainBinding>(R.layout.activity_main){
     private val frame: FragmentContainerView by lazy { // activity_main의 화면 부분
         findViewById(R.id.main_container)
     }
@@ -19,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         if (frame == null) {
             supportFragmentManager.beginTransaction()
