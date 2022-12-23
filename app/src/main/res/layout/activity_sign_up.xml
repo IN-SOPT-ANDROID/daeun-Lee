@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
             android:text="이메일 형식이 올바르지 않습니다."
-            android:textColor="#ff0000"
+            android:textColor="@color/red"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText_email" />
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
             android:text="비밀번호 형식이 올바르지 않습니다."
-            android:textColor="#ff0000"
+            android:textColor="@color/red"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText_pw" />
