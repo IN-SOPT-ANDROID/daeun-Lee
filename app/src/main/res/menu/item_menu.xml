@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/nav_home"
-        android:title="홈"
+        android:title="@string/menu_home"
         android:icon="@drawable/ic_home_white" />
     <item android:id="@+id/nav_gallery"
-        android:title="갤러리"
+        android:title="@string/menu_gallery"
         android:icon="@drawable/ic_gallery_white" />
     <item android:id="@+id/nav_search"
-        android:title="검색"
+        android:title="@string/menu_search"
         android:icon="@drawable/ic_search_white" />
 </menu>
