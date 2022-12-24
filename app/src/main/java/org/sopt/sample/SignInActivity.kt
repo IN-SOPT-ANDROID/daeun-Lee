@@ -2,6 +2,7 @@ package org.sopt.sample
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.databinding.ActivitySignInBinding
@@ -22,6 +23,7 @@ class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_s
         }
 
         viewModel.loginResult.observe(this) {
+            Toast.makeText(this, getString(R.string.sign_in_success_toast_msg), Toast.LENGTH_LONG).show()
             startActivity(Intent(this, MainActivity::class.java))
         }
         binding.registerBtn.setOnClickListener(){

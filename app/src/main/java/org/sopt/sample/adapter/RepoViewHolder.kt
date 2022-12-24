@@ -10,7 +10,7 @@ class RepoViewHolder(
 ): RecyclerView.ViewHolder(binding.root){
     fun onBind(data: ResponseUserDTO.Data){
         binding.imgGithub.load(data.avatar)
-        binding.txtGithubName.setText(data.first_name)
+        binding.txtGithubName.setText(data.firstName)
         binding.txtGithubAuthor.setText(data.email)
     }
 

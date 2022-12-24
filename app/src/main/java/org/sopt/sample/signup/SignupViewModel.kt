@@ -33,11 +33,10 @@ class SignupViewModel: ViewModel() {
                 response: Response<ResponseSignupDTO>
             ) {
                 _signupResult.value = response.body()
-                Log.d("회원가입 성공", "${response.body()}")
             }
 
             override fun onFailure(call: Call<ResponseSignupDTO>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
 
