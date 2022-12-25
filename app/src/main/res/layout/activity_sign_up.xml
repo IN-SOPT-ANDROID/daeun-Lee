@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="org.sopt.sample.signup.SignupViewModel" />
@@ -46,6 +46,7 @@
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="20dp"
             android:hint="@string/sign_up_email_hint"
+            android:text="@={viewModel.inputEmail}"
             app:layout_constraintTop_toBottomOf="@+id/txt_email_title"
             tools:layout_editor_absoluteX="40dp" />
 
@@ -56,9 +57,9 @@
             android:layout_marginEnd="40dp"
             android:text="@string/sign_up_email_error"
             android:textColor="@color/red"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_email" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_email"
+            app:visibility="@{(!viewModel.isvalidEmail &amp;&amp; viewModel.inputEmail.length()>0) ? View.VISIBLE : View.INVISIBLE}" />
 
         <TextView
             android:id="@+id/txt_password_title"
@@ -78,6 +79,7 @@
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="20dp"
             android:hint="@string/sign_up_pw_hint"
+            android:text="@={viewModel.inputPw}"
             app:layout_constraintTop_toBottomOf="@+id/txt_password_title" />
 
         <TextView
@@ -87,9 +89,9 @@
             android:layout_marginEnd="40dp"
             android:text="@string/sign_up_pw_error"
             android:textColor="@color/red"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_pw" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_pw"
+            app:visibility="@{(!viewModel.isvalidPw  &amp;&amp; viewModel.inputPw.length()>0) ? View.VISIBLE : View.INVISIBLE}" />
 
         <TextView
             android:id="@+id/txt_name_title"
@@ -118,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="30dp"
-            android:enabled="false"
+            android:enabled="@{viewModel.isvalidEmail &amp;&amp; viewModel.isvalidPw}"
             android:text="@string/sign_up_finish"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

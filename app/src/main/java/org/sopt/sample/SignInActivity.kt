@@ -2,12 +2,8 @@ package org.sopt.sample
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.login.LoginRepository
@@ -35,7 +31,6 @@ class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_s
                 RequestLoginDTO(binding.editTextId.text.toString(), binding.editTextPw.text.toString())
             )
         }
-
         binding.registerBtn.setOnClickListener(){
             startActivity(Intent(this,SignUpActivity::class.java))
         }

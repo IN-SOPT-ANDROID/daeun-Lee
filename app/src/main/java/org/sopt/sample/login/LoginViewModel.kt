@@ -1,11 +1,9 @@
 package org.sopt.sample.login
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.sopt.sample.remote.RequestLoginDTO
 import org.sopt.sample.remote.ResponseLoginDTO
@@ -22,10 +20,10 @@ class LoginViewModel (private val repository: LoginRepository): ViewModel() {
 
             if (response.isSuccessful) {
                 _loginResult.postValue(response.body())
-                Timber.d(response.body().toString())
+                Timber.d("로그인 서버통신 성공")
             }
             else{
-                Timber.d(response.body().toString())
+                Timber.d("로그인 서버통신 실패")
             }
         }
     }
