@@ -1,34 +1,32 @@
 package org.sopt.sample.login
 
+import android.app.Application
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import org.sopt.sample.remote.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.lifecycle.*
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import kotlinx.coroutines.launch
+import org.sopt.sample.remote.RequestLoginDTO
+import org.sopt.sample.remote.ResponseLoginDTO
+import timber.log.Timber
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel (private val repository: LoginRepository): ViewModel() {
     private val _loginResult: MutableLiveData<ResponseLoginDTO> = MutableLiveData()
     val loginResult: LiveData<ResponseLoginDTO>
         get() = _loginResult
-    private val loginService = ServicePool.loginService
-    fun login(email: String, password: String) {
-        loginService.login(
-            RequestLoginDTO(email, password)
-        ).enqueue(object : Callback<ResponseLoginDTO> {
-            override fun onResponse(
-                call: Call<ResponseLoginDTO>,
-                response: Response<ResponseLoginDTO>
-            ) {
-                _loginResult.value = response.body()
-            }
 
-            override fun onFailure(call: Call<ResponseLoginDTO>, t: Throwable) {
-                TODO("Not yet implemented")
+    fun login(requestLoginDTO: RequestLoginDTO) {
+        viewModelScope.launch {
+            val response = repository.login(requestLoginDTO)
+
+            if (response.isSuccessful) {
+                _loginResult.postValue(response.body())
+                Timber.d(response.body().toString())
             }
-        })
+            else{
+                Timber.d(response.body().toString())
+            }
+        }
     }
 }

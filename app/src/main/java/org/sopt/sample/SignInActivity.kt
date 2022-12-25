@@ -2,16 +2,27 @@ package org.sopt.sample
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.databinding.ActivitySignInBinding
+import org.sopt.sample.login.LoginRepository
 import org.sopt.sample.login.LoginViewModel
+import org.sopt.sample.login.LoginViewModelFactory
+import org.sopt.sample.remote.RequestLoginDTO
 
 class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
-    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var viewModel: LoginViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, LoginViewModelFactory(LoginRepository()))
+            .get(LoginViewModel::class.java)
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -21,8 +32,7 @@ class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_s
     private fun addListeners(){
         binding.loginBtn.setOnClickListener {
             viewModel.login(
-                binding.editTextId.text.toString(),
-                binding.editTextPw.text.toString()
+                RequestLoginDTO(binding.editTextId.text.toString(), binding.editTextPw.text.toString())
             )
         }
 
