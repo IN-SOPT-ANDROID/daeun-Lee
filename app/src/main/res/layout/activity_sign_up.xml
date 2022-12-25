@@ -112,6 +112,7 @@
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="20dp"
             android:hint="@string/sign_up_name_hint"
+            android:text="@={viewModel.inputName}"
             app:layout_constraintTop_toBottomOf="@+id/txt_name_title" />
 
         <Button

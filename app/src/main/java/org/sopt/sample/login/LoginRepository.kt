@@ -9,10 +9,10 @@ class LoginRepository {
         kotlin.runCatching {
             ServicePool.loginService.login(RequestLoginDTO(email, password))
         }.fold({
-            Timber.d("성공")
+            Timber.d("로그인 서버통신 성공")
             true
         }, {
-            Timber.d("실패")
+            Timber.d("로그인 서버통신 실패")
             false
         })
 }

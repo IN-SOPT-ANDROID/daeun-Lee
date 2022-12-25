@@ -28,13 +28,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun addListeners(){
         binding.finishBtn.setOnClickListener {
-            viewModel.signup(
-                RequestSignupDTO(
-                binding.editTextEmail.text.toString(),
-                binding.editTextPw.text.toString(),
-                binding.editTextName.text.toString()
-                )
-            )
+            viewModel.signup()
         }
     }
 

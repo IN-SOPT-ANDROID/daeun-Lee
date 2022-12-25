@@ -7,12 +7,13 @@ import org.sopt.sample.remote.ResponseSignupDTO
 import timber.log.Timber
 
 class SignupViewModel(private val repository: SignupRepository): ViewModel() {
-    private val _signupResult: MutableLiveData<ResponseSignupDTO> = MutableLiveData()
-    val signupResult: LiveData<ResponseSignupDTO>
+    private val _signupResult: MutableLiveData<Boolean> = MutableLiveData()
+    val signupResult: LiveData<Boolean>
         get() = _signupResult
 
     val inputEmail = MutableLiveData<String>()
     val inputPw = MutableLiveData<String>()
+    val inputName = MutableLiveData<String>()
 
     val isvalidEmail: LiveData<Boolean>
         get() = Transformations.map(inputEmail)
@@ -20,16 +21,12 @@ class SignupViewModel(private val repository: SignupRepository): ViewModel() {
     val isvalidPw: LiveData<Boolean>
         get() = Transformations.map(inputPw) { pw -> pw?.matches(PASSWORD_PATTERN.toRegex()) }
 
-    fun signup(requestSignupDTO: RequestSignupDTO) {
+    fun signup() {
         viewModelScope.launch {
-            val response = repository.signup(requestSignupDTO)
-
-            if (response.isSuccessful) {
-                _signupResult.postValue(response.body())
-                Timber.d("회원가입 서버 통신 성공")
-            } else {
-                Timber.d("회원가입 서버 통신 실패")
-            }
+            val isSuccesful = repository.signup(inputEmail.value.toString(), inputPw.value.toString(),
+                inputName.value.toString())
+            if(isSuccesful)
+                _signupResult.value = isSuccesful
         }
     }
 
