@@ -10,21 +10,17 @@ import org.sopt.sample.remote.ResponseLoginDTO
 import timber.log.Timber
 
 class LoginViewModel (private val repository: LoginRepository): ViewModel() {
-    private val _loginResult: MutableLiveData<ResponseLoginDTO> = MutableLiveData()
-    val loginResult: LiveData<ResponseLoginDTO>
+    private val _loginResult: MutableLiveData<Boolean> = MutableLiveData()
+    val loginResult: LiveData<Boolean>
         get() = _loginResult
+    val inputEmail = MutableLiveData<String>()
+    val inputPw = MutableLiveData<String>()
 
-    fun login(requestLoginDTO: RequestLoginDTO) {
+    fun login() {
         viewModelScope.launch {
-            val response = repository.login(requestLoginDTO)
-
-            if (response.isSuccessful) {
-                _loginResult.postValue(response.body())
-                Timber.d("로그인 서버통신 성공")
-            }
-            else{
-                Timber.d("로그인 서버통신 실패")
-            }
+            val isSuccesful = repository.login(inputEmail.value.toString(), inputPw.value.toString())
+            if(isSuccesful)
+                _loginResult.value = isSuccesful
         }
     }
 }

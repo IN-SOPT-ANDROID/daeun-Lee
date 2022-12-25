@@ -2,6 +2,7 @@ package org.sopt.sample
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import org.sopt.sample.base.BindingActivity
@@ -27,9 +28,7 @@ class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_s
     }
     private fun addListeners(){
         binding.loginBtn.setOnClickListener {
-            viewModel.login(
-                RequestLoginDTO(binding.editTextId.text.toString(), binding.editTextPw.text.toString())
-            )
+            viewModel.login()
         }
         binding.registerBtn.setOnClickListener(){
             startActivity(Intent(this,SignUpActivity::class.java))

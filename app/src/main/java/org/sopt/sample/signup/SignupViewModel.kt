@@ -13,6 +13,7 @@ class SignupViewModel(private val repository: SignupRepository): ViewModel() {
 
     val inputEmail = MutableLiveData<String>()
     val inputPw = MutableLiveData<String>()
+
     val isvalidEmail: LiveData<Boolean>
         get() = Transformations.map(inputEmail)
         { email -> email?.matches(EMAIL_PATTERN.toRegex()) }
