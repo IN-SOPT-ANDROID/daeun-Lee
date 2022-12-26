@@ -2,7 +2,6 @@ package org.sopt.sample
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import org.sopt.sample.base.BindingActivity
@@ -10,7 +9,6 @@ import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.login.LoginRepository
 import org.sopt.sample.login.LoginViewModel
 import org.sopt.sample.login.LoginViewModelFactory
-import org.sopt.sample.remote.RequestLoginDTO
 
 class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private lateinit var viewModel: LoginViewModel

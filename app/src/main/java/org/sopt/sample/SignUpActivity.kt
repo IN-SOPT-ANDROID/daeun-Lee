@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.databinding.ActivitySignUpBinding
-import org.sopt.sample.remote.RequestSignupDTO
 import org.sopt.sample.signup.SignupRepository
 import org.sopt.sample.signup.SignupViewModel
 import org.sopt.sample.signup.SignupViewModelFactory

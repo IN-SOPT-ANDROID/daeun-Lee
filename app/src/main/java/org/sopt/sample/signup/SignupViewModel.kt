@@ -6,7 +6,7 @@ import org.sopt.sample.remote.RequestSignupDTO
 import org.sopt.sample.remote.ResponseSignupDTO
 import timber.log.Timber
 
-class SignupViewModel(private val repository: SignupRepository): ViewModel() {
+class SignupViewModel(private val repository: SignupRepository) : ViewModel() {
     private val _signupResult: MutableLiveData<Boolean> = MutableLiveData()
     val signupResult: LiveData<Boolean>
         get() = _signupResult
@@ -23,9 +23,11 @@ class SignupViewModel(private val repository: SignupRepository): ViewModel() {
 
     fun signup() {
         viewModelScope.launch {
-            val isSuccesful = repository.signup(inputEmail.value.toString(), inputPw.value.toString(),
-                inputName.value.toString())
-            if(isSuccesful)
+            val isSuccesful = repository.signup(
+                inputEmail.value.toString(), inputPw.value.toString(),
+                inputName.value.toString()
+            )
+            if (isSuccesful)
                 _signupResult.value = isSuccesful
         }
     }
