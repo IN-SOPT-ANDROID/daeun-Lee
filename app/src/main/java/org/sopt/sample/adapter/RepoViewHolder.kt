@@ -9,7 +9,7 @@ import org.sopt.sample.remote.ResponseUserDTO
 class RepoViewHolder(
     private val binding: ItemUserInfoBinding
 ): RecyclerView.ViewHolder(binding.root){
-    fun onBind(data: UserData){
+    fun onBind(data: ResponseUserDTO.Data){
         binding.data = data
     }
 }

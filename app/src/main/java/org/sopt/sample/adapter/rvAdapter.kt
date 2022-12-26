@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import org.sopt.sample.data.UserData
 import org.sopt.sample.databinding.ItemHeaderBinding
 import org.sopt.sample.databinding.ItemUserInfoBinding
+import org.sopt.sample.remote.ResponseUserDTO
 
 class rvAdapter(context : Context):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater by lazy {LayoutInflater.from(context)}
-    private var repoList: List<UserData> = emptyList()
+    private var repoList: List<ResponseUserDTO.Data> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -35,7 +36,7 @@ class rvAdapter(context : Context):RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     override fun getItemCount(): Int = repoList.size
 
-    fun setRepoList(repoList: List<UserData>){
+    fun setRepoList(repoList: List<ResponseUserDTO.Data>){
         this.repoList = repoList.toList()
         notifyDataSetChanged()
     }
