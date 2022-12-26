@@ -31,8 +31,8 @@
     <string name="gallery_image_upload">이미지 업로드!</string>
 
     <!--github-->
-    <string name="github_repo">Repo Name</string>
-    <string name="github_user">Dani Lee</string>
+    <string name="user_name">User Name</string>
+    <string name="user_email">User Email</string>
 
     <!--header-->
     <string name="header_name">다니의 레포지터리</string>

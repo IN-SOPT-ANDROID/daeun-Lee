@@ -2,10 +2,10 @@ package org.sopt.sample.data
 
 import androidx.annotation.DrawableRes
 
-data class Repo (
+data class UserData (
     @DrawableRes val image : Int,
     val name: String,
-    val author: String,
+    val email: String,
     val viewType: Int)
 {
     companion object {

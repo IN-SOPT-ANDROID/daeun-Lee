@@ -3,23 +3,23 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.sample.databinding.LayoutGithubRepoBinding
-import org.sopt.sample.databinding.LayoutHeaderBinding
-import org.sopt.sample.remote.ResponseUserDTO
+import org.sopt.sample.data.UserData
+import org.sopt.sample.databinding.ItemHeaderBinding
+import org.sopt.sample.databinding.ItemUserInfoBinding
 
 class rvAdapter(context : Context):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater by lazy {LayoutInflater.from(context)}
-    private var repoList: List<ResponseUserDTO.Data> = emptyList()
+    private var repoList: List<UserData> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
             REPO_TYPE ->{
-                val binding = LayoutGithubRepoBinding.inflate(inflater, parent,false)
+                val binding = ItemUserInfoBinding.inflate(inflater, parent,false)
                 RepoViewHolder(binding)
             }
             HEADER_TYPE ->{
-                val binding = LayoutHeaderBinding.inflate(inflater, parent,false)
+                val binding = ItemHeaderBinding.inflate(inflater, parent,false)
                 TitleViewHolder(binding)
             }
             else -> throw RuntimeException("Error")
@@ -35,7 +35,7 @@ class rvAdapter(context : Context):RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     override fun getItemCount(): Int = repoList.size
 
-    fun setRepoList(repoList: List<ResponseUserDTO.Data>){
+    fun setRepoList(repoList: List<UserData>){
         this.repoList = repoList.toList()
         notifyDataSetChanged()
     }
