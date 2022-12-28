@@ -9,5 +9,5 @@ interface LoginService {
     @POST("api/user/signin")
     suspend fun login(
         @Body requestLoginDTO: RequestLoginDTO
-    ): Response<ResponseLoginDTO>
+    ): ResponseLoginDTO
 }

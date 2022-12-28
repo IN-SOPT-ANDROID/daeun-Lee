@@ -2,9 +2,6 @@ package org.sopt.sample.signup
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import org.sopt.sample.remote.RequestSignupDTO
-import org.sopt.sample.remote.ResponseSignupDTO
-import timber.log.Timber
 
 class SignupViewModel(private val repository: SignupRepository) : ViewModel() {
     private val _signupResult: MutableLiveData<Boolean> = MutableLiveData()

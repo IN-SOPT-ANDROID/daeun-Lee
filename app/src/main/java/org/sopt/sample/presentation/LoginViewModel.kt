@@ -1,15 +1,13 @@
-package org.sopt.sample.login
+package org.sopt.sample.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.sopt.sample.remote.RequestLoginDTO
-import org.sopt.sample.remote.ResponseLoginDTO
-import timber.log.Timber
+import org.sopt.sample.data.repositoryImpl.LoginRepositoryImpl
 
-class LoginViewModel (private val repository: LoginRepository): ViewModel() {
+class LoginViewModel (private val repository: LoginRepositoryImpl): ViewModel() {
     private val _loginResult: MutableLiveData<Boolean> = MutableLiveData()
     val loginResult: LiveData<Boolean>
         get() = _loginResult

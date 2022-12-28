@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.databinding.ActivitySignUpBinding
+import org.sopt.sample.presentation.SignInActivity
 import org.sopt.sample.signup.SignupRepository
 import org.sopt.sample.signup.SignupViewModel
 import org.sopt.sample.signup.SignupViewModelFactory
@@ -33,7 +34,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun addObservers() {
         viewModel.signupResult.observe(this) {
-            startActivity(Intent(this,SignInActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
             Toast.makeText(this,getString(R.string.sign_up_success_toast_msg), Toast.LENGTH_LONG).show()
         }
     }
