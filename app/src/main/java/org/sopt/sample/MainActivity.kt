@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentContainerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity :BindingActivity<ActivityMainBinding>(R.layout.activity_main){
     private val frame: FragmentContainerView by lazy { // activity_main의 화면 부분
