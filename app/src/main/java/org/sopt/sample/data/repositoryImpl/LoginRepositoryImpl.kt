@@ -3,7 +3,6 @@ package org.sopt.sample.data.repositoryImpl
 import org.sopt.sample.data.datasource.LoginDataSource
 import org.sopt.sample.domain.LoginRepository
 import org.sopt.sample.remote.RequestLoginDTO
-import org.sopt.sample.remote.ServicePool
 import timber.log.Timber
 
 class LoginRepositoryImpl(

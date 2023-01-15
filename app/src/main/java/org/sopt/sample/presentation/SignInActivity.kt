@@ -9,12 +9,8 @@ import org.sopt.sample.R
 import org.sopt.sample.SignUpActivity
 import org.sopt.sample.base.BindingActivity
 import org.sopt.sample.data.datasource.LoginDataSource
-import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.data.repositoryImpl.LoginRepositoryImpl
-import org.sopt.sample.domain.LoginRepository
-import org.sopt.sample.remote.ApiFactory
-import org.sopt.sample.remote.LoginService
-import org.sopt.sample.remote.RequestLoginDTO
+import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.remote.ServicePool
 
 class SignInActivity: BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
