@@ -3,8 +3,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.sample.databinding.LayoutGithubRepoBinding
-import org.sopt.sample.databinding.LayoutHeaderBinding
+import org.sopt.sample.data.UserData
+import org.sopt.sample.databinding.ItemHeaderBinding
+import org.sopt.sample.databinding.ItemUserInfoBinding
 import org.sopt.sample.remote.ResponseUserDTO
 
 class rvAdapter(context : Context):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -15,11 +16,11 @@ class rvAdapter(context : Context):RecyclerView.Adapter<RecyclerView.ViewHolder>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
             REPO_TYPE ->{
-                val binding = LayoutGithubRepoBinding.inflate(inflater, parent,false)
+                val binding = ItemUserInfoBinding.inflate(inflater, parent,false)
                 RepoViewHolder(binding)
             }
             HEADER_TYPE ->{
-                val binding = LayoutHeaderBinding.inflate(inflater, parent,false)
+                val binding = ItemHeaderBinding.inflate(inflater, parent,false)
                 TitleViewHolder(binding)
             }
             else -> throw RuntimeException("Error")
